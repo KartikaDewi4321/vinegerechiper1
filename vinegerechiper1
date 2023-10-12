@@ -1,0 +1,29 @@
+def vigenere_cipher(text, key, encrypt=True):
+    result = []
+    key_length = len(key)
+    for i, char in enumerate(text):
+        if char.isalpha():
+            shift = ord(key[i % key_length]) - ord('A')
+            if char.islower():
+                base = ord('a')
+            else:
+                base = ord('A')
+            if encrypt:
+                shifted = (ord(char) - base + shift) % 26 + base
+            else:
+                shifted = (ord(char) - base - shift) % 26 + base
+            result.append(chr(shifted))
+        else:
+            result.append(char)
+    return ''.join(result)
+
+# Contoh penggunaan
+plaintext = "Kartika Tunggal Dewi."
+key = "123"
+encrypted_text = vigenere_cipher(plaintext, key)
+decrypted_text = vigenere_cipher(encrypted_text, key, encrypt=False)
+
+print("Plaintext:", plaintext)
+print("Kunci:", key)
+print("Teks Terenkripsi:", encrypted_text)
+print("Teks Terdekripsi:", decrypted_text)
